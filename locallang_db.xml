@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<type>database</type>
+		<description>Language labels for database tables/fields belonging to extension 'cag_textbox'</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="tt_content.CType_pi1">Magazine Images</label>
+			<label index="tt_content.tx_cagmagstyleimg_flex">Magazine Layout</label>
+			<label index="tx_cagmagstyleimg.imglayout">Image Settings</label>
+			<label index="tx_cagmagstyleimg.blocklayout">Block Settings</label>					
+			<label index="tx_cagmagstyleimg.imgpadding">Padding</label>
+			<label index="tx_cagmagstyleimg.borderwidth">Border width</label>
+			<label index="tx_cagmagstyleimg.bordercolor">Border color</label>
+			<label index="tx_cagmagstyleimg.borderstyle">Border style</label>					
+			<label index="tx_cagmagstyleimg.borderstyle.dotted">dotted</label>
+			<label index="tx_cagmagstyleimg.borderstyle.dashed">dashed</label>
+			<label index="tx_cagmagstyleimg.borderstyle.solid">solid</label>
+			<label index="tx_cagmagstyleimg.borderstyle.double">double</label>
+			<label index="tx_cagmagstyleimg.borderstyle.groove">groove</label>
+			<label index="tx_cagmagstyleimg.borderstyle.ridge">ridge</label>
+			<label index="tx_cagmagstyleimg.borderstyle.inset">inset</label>
+			<label index="tx_cagmagstyleimg.borderstyle.outset">outset</label>									
+			<label index="tx_cagmagstyleimg.blockbgcolor">Background color</label>																
+		</languageKey>
+		<languageKey index="de" type="array">
+			<label index="tt_content.CType_pi1">Bilder (Magazin-Layout)</label>
+			<label index="tt_content.tx_cagmagstyleimg_flex">Magazin-Layout</label>
+			<label index="tx_cagmagstyleimg.imglayout">Bilder</label>
+			<label index="tx_cagmagstyleimg.blocklayout">Bildblock</label>						
+			<label index="tx_cagmagstyleimg.padding">Bildabstand</label>
+			<label index="tx_cagmagstyleimg.borderwidth">Rahmen</label>
+			<label index="tx_cagmagstyleimg.bordercolor">Rahmenfarbe</label>
+			<label index="tx_cagmagstyleimg.borderstyle">Rahmenstil</label>
+			<label index="tx_cagmagstyleimg.borderstyle.dotted">gepunkted</label>
+			<label index="tx_cagmagstyleimg.borderstyle.dashed">gestrichelt</label>
+			<label index="tx_cagmagstyleimg.borderstyle.solid">solide</label>
+			<label index="tx_cagmagstyleimg.borderstyle.double">doppelt</label>
+			<label index="tx_cagmagstyleimg.borderstyle.groove">eingekerbt</label>
+			<label index="tx_cagmagstyleimg.borderstyle.ridge">erhöht</label>
+			<label index="tx_cagmagstyleimg.borderstyle.inset">eingelassen</label>
+			<label index="tx_cagmagstyleimg.borderstyle.outset">reliefartig</label>			
+			<label index="tx_cagmagstyleimg.blockbgcolor">Hintergrundfarbe</label>															
+		</languageKey>
+	</data>
+</T3locallang>

@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3DataStructure>
+	<meta>
+		<langDisable>1</langDisable>
+	</meta>
+  	<sheets>
+		<sDEF>
+			<ROOT>
+				<TCEforms>
+					<sheetTitle>LLL:EXT:cag_magstyleimg/locallang_db.xml:tx_cagmagstyleimg.imglayout</sheetTitle>
+				</TCEforms>	
+		        <type>array</type>
+		        <el>
+						
+			  	<imgPadding>
+					<TCEforms>
+					<label>LLL:EXT:cag_magstyleimg/locallang_db.xml:tx_cagmagstyleimg.imgpadding</label>
+						<config>
+							<type>input</type>
+							<checkbox></checkbox>
+							<eval>num</eval>
+							<size>3</size>
+						</config>
+					</TCEforms>
+				</imgPadding>
+				
+				<imgBorderWidth>
+					<TCEforms>
+					<label>LLL:EXT:cag_magstyleimg/locallang_db.xml:tx_cagmagstyleimg.borderwidth</label>
+						<config>
+							<type>input</type>
+							<checkbox></checkbox>
+							<eval>num</eval>
+							<size>3</size>
+						</config>
+					</TCEforms>
+				</imgBorderWidth>
+				
+				<imgBorderColor>
+					<TCEforms>
+					<label>LLL:EXT:cag_magstyleimg/locallang_db.xml:tx_cagmagstyleimg.bordercolor</label>
+						<config>
+							<type>input</type>
+							<checkbox></checkbox>
+							<size>20</size>
+					        <wizards>
+					        	<_PADDING>2</_PADDING>
+					         	<color>
+						          	<type>colorbox</type>
+						         	<dim>18x12</dim>
+						         	<tableStyle>border:solid 1px black;</tableStyle>
+						          	<script>wizard_colorpicker.php</script>
+						         	<exampleImg>gfx/wizard_colorpickerex.jpg</exampleImg>				         			 
+									<JSopenParams>height=300,width=450,status=0,menubar=0,scrollbars=1</JSopenParams>
+					         	</color>
+					        </wizards>
+						</config>
+					</TCEforms>
+				</imgBorderColor>
+										  
+				<imgBorderStyle>
+				  	<TCEforms>
+					<label>LLL:EXT:cag_magstyleimg/locallang_db.xml:tx_cagmagstyleimg.borderstyle</label>
+						<config>
+							<type>select</type>
+							<items type="array">
+								<numIndex index="0" type="array">
+									<numIndex index="0"></numIndex>
+									<numIndex index="1"></numIndex>
+								</numIndex>					
+								<numIndex index="1" type="array">
+									<numIndex index="0">LLL:EXT:cag_magstyleimg/locallang_db.xml:tx_cagmagstyleimg.borderstyle.dotted</numIndex>
+									<numIndex index="1">dotted</numIndex>
+								</numIndex>
+								<numIndex index="2" type="array">
+									<numIndex index="0">LLL:EXT:cag_magstyleimg/locallang_db.xml:tx_cagmagstyleimg.borderstyle.dashed</numIndex>
+									<numIndex index="1">dashed</numIndex>
+								</numIndex>
+								<numIndex index="3" type="array">
+									<numIndex index="0">LLL:EXT:cag_magstyleimg/locallang_db.xml:tx_cagmagstyleimg.borderstyle.solid</numIndex>
+									<numIndex index="1">solid</numIndex>
+								</numIndex>
+								<numIndex index="4" type="array">
+									<numIndex index="0">LLL:EXT:cag_magstyleimg/locallang_db.xml:tx_cagmagstyleimg.borderstyle.double</numIndex>
+									<numIndex index="1">double</numIndex>
+								</numIndex>
+								<numIndex index="5" type="array">
+									<numIndex index="0">LLL:EXT:cag_magstyleimg/locallang_db.xml:tx_cagmagstyleimg.borderstyle.groove</numIndex>
+									<numIndex index="1">groove</numIndex>
+								</numIndex>
+								<numIndex index="6" type="array">
+									<numIndex index="0">LLL:EXT:cag_magstyleimg/locallang_db.xml:tx_cagmagstyleimg.borderstyle.ridge</numIndex>
+									<numIndex index="1">ridge</numIndex>
+								</numIndex>
+								<numIndex index="7" type="array">
+									<numIndex index="0">LLL:EXT:cag_magstyleimg/locallang_db.xml:tx_cagmagstyleimg.borderstyle.inset</numIndex>
+									<numIndex index="1">inset</numIndex>
+								</numIndex>
+								<numIndex index="8" type="array">
+									<numIndex index="0">LLL:EXT:cag_magstyleimg/locallang_db.xml:tx_cagmagstyleimg.borderstyle.outset</numIndex>
+									<numIndex index="1">outset</numIndex>
+								</numIndex>								
+							</items>
+							<minitems>0</minitems>
+							<maxitems>1</maxitems>
+							<size>1</size>
+						</config>
+					</TCEforms>
+				 </imgBorderStyle>				 				  							    
+		        </el>
+			</ROOT>
+		</sDEF>
+		<s_block>
+			<ROOT>
+				<TCEforms>
+					<sheetTitle>LLL:EXT:cag_magstyleimg/locallang_db.xml:tx_cagmagstyleimg.blocklayout</sheetTitle>
+				</TCEforms>
+				<type>array</type>
+				<el>
+				
+				<blockBGColor>
+					<TCEforms>
+					<label>LLL:EXT:cag_magstyleimg/locallang_db.xml:tx_cagmagstyleimg.blockbgcolor</label>
+						<config>
+							<type>input</type>
+							<checkbox></checkbox>
+							<size>20</size>
+					        <wizards>
+					        	<_PADDING>2</_PADDING>
+					         	<color>
+						          	<type>colorbox</type>
+						         	<dim>18x12</dim>
+						         	<tableStyle>border:solid 1px black;</tableStyle>
+						          	<script>wizard_colorpicker.php</script>
+						         	<exampleImg>gfx/wizard_colorpickerex.jpg</exampleImg>				         			 
+									<JSopenParams>height=300,width=450,status=0,menubar=0,scrollbars=1</JSopenParams>
+					         	</color>
+					        </wizards>
+						</config>
+					</TCEforms>
+				</blockBGColor>	
+				
+				<blockBorderWidth>
+					<TCEforms>
+					<label>LLL:EXT:cag_magstyleimg/locallang_db.xml:tx_cagmagstyleimg.borderwidth</label>
+						<config>
+							<type>input</type>
+							<checkbox></checkbox>
+							<eval>num</eval>
+							<size>3</size>
+						</config>
+					</TCEforms>
+				</blockBorderWidth>
+				
+				<blockBorderColor>
+					<TCEforms>
+					<label>LLL:EXT:cag_magstyleimg/locallang_db.xml:tx_cagmagstyleimg.bordercolor</label>
+						<config>
+							<type>input</type>
+							<checkbox></checkbox>
+							<size>20</size>
+					        <wizards>
+					        	<_PADDING>2</_PADDING>
+					         	<color>
+						          	<type>colorbox</type>
+						         	<dim>18x12</dim>
+						         	<tableStyle>border:solid 1px black;</tableStyle>
+						          	<script>wizard_colorpicker.php</script>
+						         	<exampleImg>gfx/wizard_colorpickerex.jpg</exampleImg>				         			 
+									<JSopenParams>height=300,width=450,status=0,menubar=0,scrollbars=1</JSopenParams>
+					         	</color>
+					        </wizards>
+						</config>
+					</TCEforms>
+				</blockBorderColor>
+										  
+				<blockBorderStyle>
+				  	<TCEforms>
+					<label>LLL:EXT:cag_magstyleimg/locallang_db.xml:tx_cagmagstyleimg.borderstyle</label>
+						<config>
+							<type>select</type>
+							<items type="array">
+								<numIndex index="0" type="array">
+									<numIndex index="0"></numIndex>
+									<numIndex index="1"></numIndex>
+								</numIndex>					
+								<numIndex index="1" type="array">
+									<numIndex index="0">LLL:EXT:cag_magstyleimg/locallang_db.xml:tx_cagmagstyleimg.borderstyle.dotted</numIndex>
+									<numIndex index="1">dotted</numIndex>
+								</numIndex>
+								<numIndex index="2" type="array">
+									<numIndex index="0">LLL:EXT:cag_magstyleimg/locallang_db.xml:tx_cagmagstyleimg.borderstyle.dashed</numIndex>
+									<numIndex index="1">dashed</numIndex>
+								</numIndex>
+								<numIndex index="3" type="array">
+									<numIndex index="0">LLL:EXT:cag_magstyleimg/locallang_db.xml:tx_cagmagstyleimg.borderstyle.solid</numIndex>
+									<numIndex index="1">solid</numIndex>
+								</numIndex>
+								<numIndex index="4" type="array">
+									<numIndex index="0">LLL:EXT:cag_magstyleimg/locallang_db.xml:tx_cagmagstyleimg.borderstyle.double</numIndex>
+									<numIndex index="1">double</numIndex>
+								</numIndex>
+								<numIndex index="5" type="array">
+									<numIndex index="0">LLL:EXT:cag_magstyleimg/locallang_db.xml:tx_cagmagstyleimg.borderstyle.groove</numIndex>
+									<numIndex index="1">groove</numIndex>
+								</numIndex>
+								<numIndex index="6" type="array">
+									<numIndex index="0">LLL:EXT:cag_magstyleimg/locallang_db.xml:tx_cagmagstyleimg.borderstyle.ridge</numIndex>
+									<numIndex index="1">ridge</numIndex>
+								</numIndex>
+								<numIndex index="7" type="array">
+									<numIndex index="0">LLL:EXT:cag_magstyleimg/locallang_db.xml:tx_cagmagstyleimg.borderstyle.inset</numIndex>
+									<numIndex index="1">inset</numIndex>
+								</numIndex>
+								<numIndex index="8" type="array">
+									<numIndex index="0">LLL:EXT:cag_magstyleimg/locallang_db.xml:tx_cagmagstyleimg.borderstyle.outset</numIndex>
+									<numIndex index="1">outset</numIndex>
+								</numIndex>								
+							</items>
+							<minitems>0</minitems>
+							<maxitems>1</maxitems>
+							<size>1</size>
+						</config>
+					</TCEforms>
+				 </blockBorderStyle>							
+				</el>
+			</ROOT>	
+		</s_block>						
+  	</sheets>				
+</T3DataStructure>

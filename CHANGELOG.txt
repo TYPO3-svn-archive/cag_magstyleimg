@@ -1,0 +1,46 @@
+(add new changes on top of this file)
+
+07-07-13 Torsten Schrade <t.schrade@connecta.ag>
+	* added a global register 'MAG_IMG_CURRENT' that holds all imageinfos (name, size, caption etc.). THis can
+	be accessed from TS just before the img is rendered
+	* the inner wraps of the magazine blocks are now TS configurable. Property: layoutWraps.
+
+06-11-15 Torsten Schrade <t.schrade@connecta.ag>
+	* fixed the captions and link confusion with a new function
+	* fixed the display errors with advanced layouts in IE 6/7
+
+06-10-07 Torsten Schrade <t.schrade@connecta.ag>
+	* fixed bug with imgPath, dropped $url
+
+06-09-28 Torsten Schrade <t.schrade@connecta.ag>
+	* Fixed correct alignment of captions
+	* Added support for dam_tt_content
+	* Manual updated
+
+06-09-25 Torsten Schrade <t.schrade@connecta.ag>
+	* Added support for kj_imagelightbox2 with divider2tabs (Thx. Ingo Franzen)
+
+06-08-05 Torsten Schrade  <t.schrade@connecta.ag>
+	* Made the wraps fully configurable
+	* support for TYPO3 versions below 4.0.0
+	* code cleanup
+
+06-08-02 Torsten Schrade  <t.schrade@connecta.ag>
+
+	* Can now be used as text/w magazine images
+	* Added icons for Web>Page and Web>List
+	* Image compression now possible
+	* BUGFIX: When no imgs were selected, the sorting resulted in an mysql error (Thx. Tilman Schlereth)
+	* Added clarification to CEW that there is only support for up to eight images (Thx. Tilman Schlereth)
+
+06-08-01 Torsten Schrade  <t.schrade@connecta.ag>
+
+	* Integration of flexform for config settings
+	* Padding between images can now be set on each CE
+	* Borders around images AND imageblock can now be set on CE
+	* Background can now be set for imageblock on CE
+	* Included preview images for CE in Templavoila
+
+06-07-14 Torsten Schrade  <t.schrade@connecta.ag>
+
+	* Initial release

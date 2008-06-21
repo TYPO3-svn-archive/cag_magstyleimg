@@ -1,0 +1,345 @@
+##########################################################
+# General TypoScript Config for plugin.tx_cagmagstyleimg #
+##########################################################
+
+# include rendering class
+includeLibs.tx_cagmagstyleimg_pi1 = EXT:cag_magstyleimg/pi1/class.tx_cagmagstyleimg_pi1.php
+
+# configure the rendering
+# note: you can use the following TS for imagerendering not only within tt_content but with images from other fields (ie. media)
+
+plugin.tx_cagmagstyleimg_pi1 = USER
+plugin.tx_cagmagstyleimg_pi1 {
+
+	userFunc = tx_cagmagstyleimg_pi1->main
+
+	# the list of images for the imageblock
+	imgList.field = image
+
+	# the path to the imgs / stdWrap can be used :)
+	imgPath = uploads/pics/
+
+	blockConfig {
+
+		# width of the whole imageblock
+		width = TEXT
+		width {
+			field = imagewidth
+
+			# load maxW if field is empty
+			ifEmpty = {$plugin.tx_cagmagstyleimg.maxW}
+
+			# imageblock not larger than maxW
+			override = {$plugin.tx_cagmagstyleimg.maxW}
+			override.if {
+				value.field = imagewidth
+				isLessThan = {$plugin.tx_cagmagstyleimg.maxW}
+			}
+		}
+
+		blockWrap = <div class="msi-blockwrap" style="width: {register:msiBlockWidth}px; border: {register:msiBlockBorder}; background: {register:msiBlockBgColor};">|<div style="clear: both"></div>###CAPTION###</div>
+
+		bgColor = {$plugin.tx_cagmagstyleimg.blockbgcolor}
+
+		# border around the imageblock (will get set as inline style)
+		border.width = {$plugin.tx_cagmagstyleimg.blockborderwidth}
+		border.style = {$plugin.tx_cagmagstyleimg.blockborderstyle}
+		border.color = {$plugin.tx_cagmagstyleimg.blockbordercolor}
+	}
+
+	imgConfig {
+
+		# padding between the images (will get set as inline style)
+		imgPadding = {$plugin.tx_cagmagstyleimg.imgpadding}
+
+		# border around each image (will get set as inline style)
+		border.width = {$plugin.tx_cagmagstyleimg.imgborderwidth}
+		border.style = {$plugin.tx_cagmagstyleimg.imgborderstyle}
+		border.color = {$plugin.tx_cagmagstyleimg.imgbordercolor}
+
+		imageLinkWrap < tt_content.image.20.1.imageLinkWrap
+
+		image_compression = TEXT
+		image_compression.field = image_compression
+
+		caption = TEXT
+		caption {
+			field = imagecaption
+			required = 1
+			parseFunc =< lib.parseFunc
+			br = 1
+			editIcons < tt_content.image.20.caption.editIcons
+		}
+
+		altText = TEXT
+		altText {
+			field = altText
+			split.token.char = 10
+			split.returnKey.data = register : IMAGE_NUM
+		}
+
+		titleText < .altText
+		titleText.field = titleText
+
+		longdescURL < .altText
+		longdescURL.field = longdescURL
+	}
+
+	layoutWraps {
+
+		1a.1.wrap = <div style="float:left;">|</div>
+
+		2a {
+			1.wrap = <div style="float:left;">|</div>
+			2.wrap = <div style="float:left;">|</div>
+		}
+
+		3a {
+			1.wrap = <div style="float:left;">|</div>
+			2.wrap = <div style="float:left;">|</div>
+			3.wrap = <div style="float:left;">|</div>
+		}
+
+		3b {
+			1.wrap = <div style="float:right;">|</div>
+			2.wrap = <div style="float:left;">|</div>
+			3.wrap = <div style="float:left;">|</div>
+		}
+
+		4a {
+			1.wrap = <div style="float:left;">|</div>
+			2.wrap = <div style="float:left;">|</div>
+			3.wrap = <div style="float:left;">|</div>
+			4.wrap = <div style="float:left;">|</div>
+		}
+
+		4b {
+			1.wrap = <div style="float:right;">|</div>
+			2.wrap = <div style="float:left;">|</div>
+			3.wrap = <div style="float:left;">|</div>
+			4.wrap = <div style="float:left;">|</div>
+		}
+	}
+}
+
+# TS config for usage as CE in tt_content
+
+tt_content.cag_magstyleimg_pi1 = COA
+tt_content.cag_magstyleimg_pi1 {
+
+	stdWrap {
+		editIcons = tt_content: image, imagewidth, image_link, image_zoom, imagecaption, imagecaption_position, altText, titleText, longdescURL
+		editIcons.iconTitle.data = LLL:EXT:cag_magstyleimg/locallang_db.xml:tx_cagmagstyleimg_type
+		prefixComment = 2 | Magazine Style Images:
+	}
+
+	10 = COA
+	10 < tt_content.textpic.10
+
+	20 < plugin.tx_cagmagstyleimg_pi1
+	20 {
+
+		imgList >
+		imgList < tt_content.image.20.imgList
+		imgPath >
+		imgPath < tt_content.image.20.imgPath
+
+		text < tt_content.textpic.20.text
+
+		textMargin < tt_content.image.20.textMargin
+		textMargin.addBorderWidth = 1
+	}
+}
+
+#######################################################
+# TypoScript CE Config for TYPO3 Versions < 3.9.0 	  #
+#######################################################
+
+tt_content.cag_magstyleimg_pi1 = COA
+tt_content.cag_magstyleimg_pi1 {
+
+	20 {
+
+		imgConfig.caption.outerWrap = <p class="msi-textpic-caption">|</p>
+		imgConfig.caption.outerWrap.override.if.isTrue.field = imagecaption_position
+		imgConfig.caption.outerWrap.override.cObject = COA
+		imgConfig.caption.outerWrap.override.cObject {
+
+			1 = TEXT
+			1 {
+				value = <div class="msi-textpic-caption-c"><p class="msi-textpic-caption">|</p></div>
+				if.value = center
+				if.equals.field = imagecaption_position
+			}
+
+			2 < .1
+			2.value = <div class="msi-textpic-caption-r"><p class="msi-textpic-caption">|</p></div>
+			2.if.value = right
+
+			3 < .1
+			3.value = <div class="msi-textpic-caption-l"><p class="msi-textpic-caption">|</p></div>
+			3.if.value = left
+		}
+
+		layout = CASE
+		layout {
+			key.field = imageorient
+			# above-center
+			default = TEXT
+			default.value = <div class="msi-textpic msi-textpic-center msi-textpic-above">###IMAGES######TEXT###</div><div class="msi-textpic-clear"><!-- --></div>
+			# above-right
+			1 = TEXT
+			1.value = <div class="msi-textpic msi-textpic-right msi-textpic-above">###IMAGES######TEXT###</div><div class="msi-textpic-clear"><!-- --></div>
+			# above-left
+			2 = TEXT
+			2.value = <div class="msi-textpic msi-textpic-left msi-textpic-above">###IMAGES######TEXT###</div><div class="msi-textpic-clear"><!-- --></div>
+			# below-center
+			8 = TEXT
+			8.value = <div class="msi-textpic msi-textpic-center msi-textpic-below">###TEXT######IMAGES###</div><div class="msi-textpic-clear"><!-- --></div>
+			# below-right
+			9 = TEXT
+			9.value = <div class="msi-textpic msi-textpic-right msi-textpic-below">###TEXT######IMAGES###</div><div class="msi-textpic-clear"><!-- --></div>
+			# below-left
+			10 = TEXT
+			10.value = <div class="msi-textpic msi-textpic-left msi-textpic-below">###TEXT######IMAGES###</div><div class="msi-textpic-clear"><!-- --></div>
+			# intext-right
+			17 = TEXT
+			17.value = <div class="msi-textpic msi-textpic-intext-right">###IMAGES######TEXT###</div>
+			# intext-left
+			18 = TEXT
+			18.value = <div class="msi-textpic msi-textpic-intext-left">###IMAGES######TEXT###</div>
+			# intext-right-nowrap
+			25 = TEXT
+			25.value = <div class="msi-textpic msi-textpic-intext-right-nowrap">###IMAGES###<div style="margin-right:{register:rowwidth}px;">###TEXT###</div></div><div class="msi-textpic-clear"><!-- --></div>
+			25.insertData = 1
+			# intext-left-nowrap
+			26 = TEXT
+			26.value = <div class="msi-textpic msi-textpic-intext-left-nowrap">###IMAGES###<div style="margin-left:{register:rowwidth}px;">###TEXT###</div></div><div class="msi-textpic-clear"><!-- --></div>
+			26.insertData = 1
+		}
+		text.wrap = <div class="msi-textpic-text"> | </div>
+	}
+}
+
+plugin.tx_cagmagstyleimg_pi1._CSS_DEFAULT_STYLE (
+
+	DIV.msi-blockwrap { padding: 0; }
+
+	/* Captions */
+	DIV.msi-textpic-caption-c .msi-textpic-caption { text-align: center; }
+	DIV.msi-textpic-caption-r .msi-textpic-caption { text-align: right; }
+	DIV.msi-textpic-caption-l .msi-textpic-caption { text-align: left; }
+
+	/* Clearer */
+	DIV.msi-textpic-clear { clear: both; }
+
+	/* Margins around images: */
+
+	/* Pictures on left, add margin on right */
+	DIV.msi-textpic-left DIV.msi-blockwrap .msi-textpic-image,
+	DIV.msi-textpic-intext-left-nowrap DIV.msi-blockwrap .msi-textpic-image,
+	DIV.msi-textpic-intext-left DIV.msi-blockwrap .msi-textpic-image {
+		display: inline; /* IE fix for double-margin bug */
+		margin-right: 10px;
+	}
+
+	/* Pictures on right, add margin on left */
+	DIV.msi-textpic-right DIV.msi-blockwrap .msi-textpic-image,
+	DIV.msi-textpic-intext-right-nowrap DIV.msi-blockwrap .msi-textpic-image,
+	DIV.msi-textpic-intext-right DIV.msi-blockwrap .msi-textpic-image {
+		display: inline; /* IE fix for double-margin bug */
+		margin-left: 10px;
+	}
+
+	/* Pictures centered, add margin on left */
+	DIV.msi-textpic-center DIV.msi-blockwrap .msi-textpic-image {
+		display: inline; /* IE fix for double-margin bug */
+		margin-left: 10px;
+	}
+
+	/* Add margin from image-block to text (in case of "Text w/ images") */
+	DIV.msi-textpic-intext-left DIV.msi-blockwrap,
+	DIV.msi-textpic-intext-left-nowrap DIV.msi-blockwrap {
+		margin-right: 10px !important;
+	}
+	DIV.msi-textpic-intext-right DIV.msi-blockwrap,
+	DIV.msi-textpic-intext-right-nowrap DIV.msi-blockwrap {
+		margin-left: 10px !important;
+	}
+
+	/* Positioning of images: */
+
+	/* Above */
+	DIV.msi-textpic-above DIV.msi-textpic-text { clear: both; }
+
+	/* Center (above or below) */
+	DIV.msi-textpic-center { text-align: center; /* IE-hack */ }
+	DIV.msi-textpic-center DIV.msi-blockwrap { margin: 0 auto; }
+	DIV.msi-textpic-center DIV.msi-blockwrap .msi-textpic-image { text-align: left; /* Remove IE-hack */ }
+	DIV.msi-textpic-center DIV.msi-textpic-text { text-align: left; /* Remove IE-hack */ }
+
+	/* Right (above or below) */
+	DIV.msi-textpic-right DIV.msi-blockwrap { float: right; }
+	DIV.msi-textpic-right DIV.msi-textpic-text { clear: right; }
+
+	/* Left (above or below) */
+	DIV.msi-textpic-left DIV.msi-blockwrap { float: left; }
+	DIV.msi-textpic-left DIV.msi-textpic-text { clear: left; }
+
+	/* Left (in text) */
+	DIV.msi-textpic-intext-left DIV.msi-blockwrap { float: left; }
+
+	/* Right (in text) */
+	DIV.msi-textpic-intext-right DIV.msi-blockwrap { float: right; }
+
+	/* Right (in text, no wrap around) */
+	DIV.msi-textpic-intext-right-nowrap DIV.msi-blockwrap { float: right; clear: both; }
+	/* Hide from IE5-mac. Only IE-win sees this. \*/
+	* html DIV.msi-textpic-intext-right-nowrap .msi-textpic-text { height: 1%; }
+	/* End hide from IE5/mac */
+
+	/* Left (in text, no wrap around) */
+	DIV.msi-textpic-intext-left-nowrap DIV.msi-blockwrap { float: left; clear: both; }
+	/* Hide from IE5-mac. Only IE-win sees this. \*/
+	* html DIV.msi-textpic-intext-left-nowrap .msi-textpic-text { height: 1%; }
+	/* End hide from IE5/mac */
+)
+
+
+#######################################################
+# TypoScript CE Config for TYPO3 Versions >= 3.9.0    #
+#######################################################
+
+[compatVersion = 3.9.0]
+
+# out with the old config
+plugin.tx_cagmagstyleimg_pi1._CSS_DEFAULT_STYLE >
+tt_content.cag_magstyleimg_pi1.20.layout >
+tt_content.cag_magstyleimg_pi1.20.text.wrap >
+
+# copy the necessary stuff from tt_content.image / tt_content.textpic
+
+tt_content.cag_magstyleimg_pi1 = COA
+tt_content.cag_magstyleimg_pi1 {
+
+	20 {
+
+		imgConfig.caption.outerWrap = <p class="msi-caption csc-textpic-caption">|</p>
+		imgConfig.caption.outerWrap.override.cObject {
+
+			1.value = <div class="csc-textpic-caption-c"><p class="msi-caption csc-textpic-caption">|</p></div>
+
+			2.value = <div class="csc-textpic-caption-r"><p class="msi-caption csc-textpic-caption">|</p></div>
+
+			3.value = <div class="csc-textpic-caption-l"><p class="msi-caption csc-textpic-caption">|</p></div>
+		}
+
+		blockConfig.blockWrap = <div class="msi-blockwrap csc-textpic-imagewrap" style="width: {register:msiBlockWidth}px; border: {register:msiBlockBorder}; background: {register:msiBlockBgColor};">|<div style="clear: both"></div>###CAPTION###</div>
+
+		text.wrap < tt_content.textpic.20.text.wrap
+
+		layout < tt_content.image.20.layout
+	}
+}
+
+[global]

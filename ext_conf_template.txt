@@ -1,0 +1,2 @@
+# cat=basic/enable; type=options[0,1]; label=Activate thumbnails in pagemodule: Enable XCLASS (!) for thumbnail generation (only needed with classic pagemodule). Please make sure no other installed extension in your environment extends class.tx_cms_layout.php via XCLASS before you activate this.
+activateThumbs = 0

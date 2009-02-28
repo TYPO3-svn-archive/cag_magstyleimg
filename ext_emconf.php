@@ -12,7 +12,7 @@
 
 $EM_CONF[$_EXTKEY] = array(
 	'title' => 'Magazine Style Images',
-	'description' => 'Creates a new CE "Magazine Style Images" with nice layout alternatives to the classic image and text/w image content elements"',
+	'description' => 'Implements a new content element "Magazine Images" with very nice looking automatic image layouts for up to eight images.',
 	'category' => 'fe',
 	'shy' => 0,
 	'version' => '0.1.3',
@@ -28,8 +28,8 @@ $EM_CONF[$_EXTKEY] = array(
 	'clearcacheonload' => 0,
 	'lockType' => '',
 	'author' => 'Torsten Schrade',
-	'author_email' => 't.schrade@connecta.ag',
-	'author_company' => 'Connecta AG <www.connecta.ag>',
+	'author_email' => 'schradt@uni-mainz.de',
+	'author_company' => '',
 	'CGLcompliance' => '',
 	'CGLcompliance_note' => '',
 	'constraints' => array(

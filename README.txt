@@ -1,4 +1,4 @@
-Browser support for the "Magazine Style Images" is as follows:
+Browser support for the "Magazine Images" is as follows:
 
 SUPPORTED
 	* FF 1.04+

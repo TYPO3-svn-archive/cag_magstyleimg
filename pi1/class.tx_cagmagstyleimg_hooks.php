@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2006 Torsten Schrade <t.schrade@connecta.ag>
+*  (c) 2009 Torsten Schrade <schradt@uni-mainz.de>
 *  All rights reserved
 *
 *  This script is part of the Typo3 project. The Typo3 project is
@@ -24,7 +24,7 @@
 /**
  * Class that adds a hook for display of preview images with Templavoila.
  *
- * @author Torsten Schrade <t.schrade@connecta.ag>
+ * @author Torsten Schrade <schradt@uni-mainz.de>
  * 
  *
  */

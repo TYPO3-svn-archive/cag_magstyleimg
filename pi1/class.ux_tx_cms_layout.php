@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2006 Torsten Schrade (t.schrade@connecta.ag)
+*  (c) 2009 Torsten Schrade <schradt@uni-mainz.de>
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -27,7 +27,7 @@
  * This extension modifies class.tx_cms_layout
  *
  *
- * @author  Torsten Schrade <t.schrade@connecta.ag>
+ * @author  Torsten Schrade <schradt@uni-mainz.de>
  */
 
 

@@ -1,15 +1,7 @@
 * there sometimes seems to be a rounding error (?) when the padding/border value is odd (1px)
 
-* in earlier versions there were some problems with IE 6/7 and the following layouts: 
-6: PPPPLL, PPPLLL, PPLLLL
-7: LLLLPPP, LLLPPPP, LPPPPPP, PPPPPPP
-8: LLLLLLPP, LLLLLPPP, LLLLPPPP, LLPPPPPP, LPPPPPPP, PPPPPPPP
-=> this was due to clear:both set on one of the floated columns; this is now taken out and the problem seems fixed; check with ALA why this property was set anyway...
-  
-* make caption split char configurable
+* make caption split char configurable?
 
 * GIFBUILDER Setup for numbering the images or print captions on them
 
-* select images from DAM category
-
-* properly comment functions in class
+* maybe select images from DAM category

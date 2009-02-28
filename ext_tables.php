@@ -26,21 +26,15 @@ $tempColumns = Array (
         )
 	),
 );
+
+// use the $TCA definition from textpic
+$TCA['tt_content']['types'][$_EXTKEY.'_pi1']['showitem'] = $TCA['tt_content']['types']['textpic']['showitem'];
+
 t3lib_extMgm::addTCAcolumns('tt_content', $tempColumns, 1);
-t3lib_extMgm::addToAllTCAtypes('tt_content', 'tx_cagmagstyleimg_flex;;;;1-1-1', 'cag_magstyleimg_pi1');
+t3lib_extMgm::addToAllTCAtypes('tt_content', 'tx_cagmagstyleimg_flex', 'cag_magstyleimg_pi1', 'after:image');
 
-// the visible formfields
-$TCA['tt_content']['types'][$_EXTKEY.'_pi1']['showitem'] = 'CType;;4;button;1-1-1, header;;3;;2-2-2, bodytext;;9; richtext:rte_transform[flag=rte_enabled|mode=ts_css];3-3-3, rte_enabled, text_properties, --div--, image;;;;4-4-4, imageorient;;2, imagewidth;;13,--palette--;LLL:EXT:cms/locallang_ttc.php:ALT.imgLinks;7,--palette--;LLL:EXT:cms/locallang_ttc.php:ALT.imgOptions;11,tx_cagmagstyleimg_flex,imagecaption;;5,altText;;;;1-1-1,titleText, longdescURL';
-
-// check if kj_imagelightbox_v2 is loaded and divider2tabs is checked
-if (t3lib_extMgm::isLoaded('kj_imagelightbox2')) {	
-		$lightbox2Conf = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['kj_imagelightbox2']);
-		if ($lightbox2Conf['dividers2tabs'] == 1) {
-			$TCA['tt_content']['types'][$_EXTKEY.'_pi1']['showitem'] = 'CType;;4;button;1-1-1, header;;3;;2-2-2, bodytext;;9; richtext:rte_transform[flag=rte_enabled|mode=ts_css];3-3-3, rte_enabled, text_properties, --div--;LLL:EXT:kj_imagelightbox2/locallang_db.xml:dividers2tabs.image, image;;;;4-4-4, imageorient;;2, imagewidth;;13,--palette--;LLL:EXT:cms/locallang_ttc.php:ALT.imgLinks;7,--palette--;LLL:EXT:cms/locallang_ttc.php:ALT.imgOptions;11,tx_cagmagstyleimg_flex,imagecaption;;5,altText;;;;1-1-1,titleText, longdescURL, --div--;LLL:EXT:kj_imagelightbox2/locallang_db.xml:dividers2tabs.generall';
-		} else {
-			$TCA['tt_content']['types'][$_EXTKEY.'_pi1']['showitem'] = 'CType;;4;button;1-1-1, header;;3;;2-2-2, bodytext;;9; richtext:rte_transform[flag=rte_enabled|mode=ts_css];3-3-3, rte_enabled, text_properties, --div--, image;;;;4-4-4, imageorient;;2, imagewidth;;13,--palette--;LLL:EXT:cms/locallang_ttc.php:ALT.imgLinks;7,--palette--;LLL:EXT:cms/locallang_ttc.php:ALT.imgOptions;11,tx_cagmagstyleimg_flex,imagecaption;;5,altText;;;;1-1-1,titleText, longdescURL';
-		}
-}
+// rename the pallette label for the imagewidth field
+$TCA['tt_content']['types'][$_EXTKEY.'_pi1']['showitem'] = str_replace('LLL:EXT:cms/locallang_ttc.php:ALT.imgDimensions', 'LLL:EXT:cag_magstyleimg/locallang_db.xml:tt_content.imgDimensions', $TCA['tt_content']['types'][$_EXTKEY.'_pi1']['showitem']);
 
 // check if dam_ttcontent is loaded
 if (t3lib_extMgm::isLoaded('dam_ttcontent')) {	
@@ -57,9 +51,7 @@ if (t3lib_extMgm::isLoaded('dam_ttcontent')) {
 // exclude unnecessary formfields with subtype exclude;
 $TCA['tt_content']['types'][$_EXTKEY.'_pi1']['subtype_value_field'] = 'CType';
 $TCA['tt_content']['types'][$_EXTKEY.'_pi1']['subtypes_excludelist'] = Array(
-
 	'cag_magstyleimg_pi1' => 'imageheight, imagecols, imageborder, image_noRows, image_effects',
-
 );
 
 // add a new content element icon

@@ -2,14 +2,15 @@
 <T3locallang>
 	<meta type="array">
 		<type>database</type>
-		<description>Language labels for database tables/fields belonging to extension 'cag_textbox'</description>
+		<description>Language labels for database tables/fields belonging to extension 'cag_magstyleimg'</description>
 	</meta>
 	<data type="array">
 		<languageKey index="default" type="array">
 			<label index="tt_content.CType_pi1">Magazine Images</label>
+			<label index="tt_content.imgDimensions">Width of the Magazine Layout</label>			
 			<label index="tt_content.tx_cagmagstyleimg_flex">Magazine Layout</label>
 			<label index="tx_cagmagstyleimg.imglayout">Image Settings</label>
-			<label index="tx_cagmagstyleimg.blocklayout">Block Settings</label>					
+			<label index="tx_cagmagstyleimg.blocklayout">Imageblock Settings</label>					
 			<label index="tx_cagmagstyleimg.imgpadding">Padding</label>
 			<label index="tx_cagmagstyleimg.borderwidth">Border width</label>
 			<label index="tx_cagmagstyleimg.bordercolor">Border color</label>
@@ -26,6 +27,7 @@
 		</languageKey>
 		<languageKey index="de" type="array">
 			<label index="tt_content.CType_pi1">Bilder (Magazin-Layout)</label>
+			<label index="tt_content.imgDimensions">Pixelbreite des gesamten Magazin-Layouts</label>				
 			<label index="tt_content.tx_cagmagstyleimg_flex">Magazin-Layout</label>
 			<label index="tx_cagmagstyleimg.imglayout">Bilder</label>
 			<label index="tx_cagmagstyleimg.blocklayout">Bildblock</label>						

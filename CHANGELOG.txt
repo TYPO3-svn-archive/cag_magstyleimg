@@ -1,7 +1,10 @@
-(add new changes on top of this file)
+09-02-28 Torsten Schrade <schradt@uni-mainz.de>
+	* BUGFIX: Display of CE in TYPO3 versions 4.2.x was broken due to divider2tabs being activated as default (Thx. Matthew K. for the bugreport)
+	* Renamed the imgDimensions pallette name for the magazine images CE (Thx. Matthew K. for the idea)
+	* 
 
 07-07-13 Torsten Schrade <t.schrade@connecta.ag>
-	* added a global register 'MAG_IMG_CURRENT' that holds all imageinfos (name, size, caption etc.). THis can
+	* added a global register 'MAG_IMG_CURRENT' that holds all imageinfos (name, size, caption etc.). This can
 	be accessed from TS just before the img is rendered
 	* the inner wraps of the magazine blocks are now TS configurable. Property: layoutWraps.
 

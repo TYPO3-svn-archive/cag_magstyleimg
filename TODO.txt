@@ -1,7 +1,0 @@
-* there sometimes seems to be a rounding error (?) when the padding/border value is odd (1px)
-
-* make caption split char configurable?
-
-* GIFBUILDER Setup for numbering the images or print captions on them
-
-* maybe select images from DAM category

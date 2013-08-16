@@ -3,7 +3,7 @@
 *  Copyright notice
 *
 *  (c) 2006 Harvey Kane (Original Script) <info@ragepank.com>
-*  (c) 2006-2009 Torsten Schrade (TYPO3 Implementation) <schradt@uni-mainz.de>
+*  (c) 2006-2013 Torsten Schrade (TYPO3 Implementation) <schradt@uni-mainz.de>
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -39,9 +39,6 @@
 *
 * Thanks a lot Harvey for providing such great work!!!
 *
-* @author Torsten Schrade <schradt@uni-mainz.de>
-* @package TYPO3
-* @subpackage tx_comments
 *
 */
 /**
@@ -60,7 +57,7 @@
  *  505:     function get4a($i1,$i2,$i3,$i4)
  *  550:     function get4b($i1,$i2,$i3,$i4)
  *  603:     function getHtml()
- *  859:     function rearrangeCaptions ($sequence)
+ *  859:     function rearrangeCaptions($sequence)
  *  884:     function useAsTextpic($html)
  *  909:     function transpose($arr)
  *
@@ -101,13 +98,10 @@ class tx_cagmagstyleimg_pi1 extends tslib_pibase {
 	 * @param	array		$conf		TypoScript configuration
 	 * @return	string		$content	Accumulated HTML for the imageblocks
 	 */
-    function main($content,$conf) {
+	function main($content,$conf) {
 
 		// making $conf generally available in class
 		$this->conf = $conf;
-
-		// check the TYPO3 version
-		$version = t3lib_div::int_from_ver(TYPO3_version);
 
 		// initialize the flexform
 		$flexFieldName = 'tx_cagmagstyleimg_flex';
@@ -153,11 +147,7 @@ class tx_cagmagstyleimg_pi1 extends tslib_pibase {
 			$textMargin = $conf['textMargin'];
 		}
 		// add the text margin to the global textpic registers
-		if($version > 4000000) {
-			$GLOBALS['TSFE']->register['rowWidthPlusTextMargin'] = $this->fullwidth + $textMargin;
-		} else {
-			$GLOBALS['TSFE']->register['rowwidth'] = $this->fullwidth + $textMargin;
-		}
+		$GLOBALS['TSFE']->register['rowWidthPlusTextMargin'] = $this->fullwidth + $textMargin;
 
 		// LAYOUT WRAPS
 		$this->layoutWraps = $conf['layoutWraps.'];
@@ -213,8 +203,8 @@ class tx_cagmagstyleimg_pi1 extends tslib_pibase {
 		// accumulate the HTML for the imageblocks
 		$content .= $this->getHtml();
 
-    	return $content;
-    }
+		return $content;
+	}
 
 
 	/**

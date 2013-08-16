@@ -1,3 +1,6 @@
+12-07-07 Torsten Schrade <schradt@uni-mainz.de>
+	* Compatibility with TYPO3 6.0+
+
 09-03-01 Torsten Schrade <schradt@uni-mainz.de>
 	* BUGFIX: Display of CE in TYPO3 4.2.x was broken due to divider2tabs being activated as default (Thx. Matthew K. for the bugreport)
 	* INFO: Better label for the magazine images dimensions palette (Thx. Matthew K. for the idea)

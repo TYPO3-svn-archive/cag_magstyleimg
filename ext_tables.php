@@ -9,21 +9,21 @@ t3lib_div::loadTCA('tt_content');
 
 // insert new CE into tt_content $TCA
 $TCA['tt_content']['columns']['CType']['config']['items'][] = Array(
-    '0' => 'LLL:EXT:cag_magstyleimg/locallang_db.xml:tt_content.CType_pi1',
-    '1' => $_EXTKEY.'_pi1'
+	'0' => 'LLL:EXT:cag_magstyleimg/locallang_db.xml:tt_content.CType_pi1',
+	'1' => $_EXTKEY.'_pi1'
 );
 
 // add the new flexform field to $TCA
 $tempColumns = Array (
-	'tx_cagmagstyleimg_flex' => Array (		
-		'exclude' => 1,		
-		'label' => 'LLL:EXT:cag_magstyleimg/locallang_db.xml:tt_content.tx_cagmagstyleimg_flex',		
+	'tx_cagmagstyleimg_flex' => Array(
+		'exclude' => 1,
+		'label' => 'LLL:EXT:cag_magstyleimg/locallang_db.xml:tt_content.tx_cagmagstyleimg_flex',
 		'config' => Array (
-			'type' => 'flex',	
-         	'ds' => array(
-            	'default' => 'FILE:EXT:cag_magstyleimg/flexform_ds.xml',
-        	 )
-        )
+			'type' => 'flex',
+			'ds' => array(
+				'default' => 'FILE:EXT:cag_magstyleimg/flexform_ds.xml',
+			)
+		)
 	),
 );
 
@@ -38,14 +38,14 @@ $TCA['tt_content']['types'][$_EXTKEY.'_pi1']['showitem'] = str_replace('LLL:EXT:
 
 // check if dam_ttcontent is loaded
 if (t3lib_extMgm::isLoaded('dam_ttcontent')) {	
-		$dam_ttcontentConf = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['dam_ttcontent']);
-		if ($dam_ttcontentConf['ctype_image_add_ref']) {
-			if ($dam_ttcontentConf['ctype_image_add_orig_field']) {
-				t3lib_extMgm::addToAllTCAtypes('tt_content','tx_damttcontent_files',$_EXTKEY.'_pi1','after:image');
-			} else {
-				$TCA['tt_content']['types'][$_EXTKEY.'_pi1']['showitem'] = str_replace(', image;', ', tx_damttcontent_files;', $TCA['tt_content']['types'][$_EXTKEY.'_pi1']['showitem']);
-			}			
+	$dam_ttcontentConf = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['dam_ttcontent']);
+	if ($dam_ttcontentConf['ctype_image_add_ref']) {
+		if ($dam_ttcontentConf['ctype_image_add_orig_field']) {
+			t3lib_extMgm::addToAllTCAtypes('tt_content','tx_damttcontent_files',$_EXTKEY.'_pi1','after:image');
+		} else {
+			$TCA['tt_content']['types'][$_EXTKEY.'_pi1']['showitem'] = str_replace(', image;', ', tx_damttcontent_files;', $TCA['tt_content']['types'][$_EXTKEY.'_pi1']['showitem']);
 		}
+	}
 }
 
 // exclude unnecessary formfields with subtype exclude;

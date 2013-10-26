@@ -29,14 +29,14 @@
  *
  */
 
-class tx_cagmagstyleimg_pi1_wizicon {
+class tx_cagmagstyleimg_wizicon {
 	
 	function proc($wizardItems) {
 		global $LANG;
 		
 		$LANG->includeLLFile(t3lib_extMgm::extPath('cag_magstyleimg').'locallang.xml');
 		$wizardItems['plugins_tx_cagmagstyleimg_pi1'] = array(
-			'icon' => t3lib_extMgm::extRelPath('cag_magstyleimg').'ce_wiz.gif',
+			'icon' => t3lib_extMgm::extRelPath('cag_magstyleimg').'res/ce_wiz.gif',
 			'title' => $LANG->getLL('pi1_title'),
 			'description' => $LANG->getLL('pi1_plus_wiz_description'),
 			'params' => '&defVals[tt_content][CType]=cag_magstyleimg_pi1' );
@@ -45,7 +45,7 @@ class tx_cagmagstyleimg_pi1_wizicon {
 	
 }
 
-if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/cag_magstyleimg/pi1/class.tx_cagmagstyleimg_pi1_wizicon.php'])	{
-	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/cag_magstyleimg/pi1/class.tx_cagmagstyleimg_pi1_wizicon.php']);
+if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/cag_magstyleimg/pi1/class.tx_cagmagstyleimg_wizicon.php'])	{
+	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/cag_magstyleimg/pi1/class.tx_cagmagstyleimg_wizicon.php']);
 }
 ?>

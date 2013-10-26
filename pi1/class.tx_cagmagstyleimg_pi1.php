@@ -41,32 +41,6 @@
 *
 *
 */
-/**
- * [CLASS/FUNCTION INDEX of SCRIPT]
- *
- *
- *
- *   74: class tx_cagmagstyleimg_pi1 extends tslib_pibase
- *  104:     function main($content,$conf)
- *  225:     function addImage($filename,$imgPath)
- *  279:     function insertImage($size,$file,$i)
- *  367:     function get1a($i1)
- *  386:     function get2a($i1,$i2)
- *  411:     function get3a($i1,$i2,$i3)
- *  452:     function get3b($i1,$i2,$i3)
- *  505:     function get4a($i1,$i2,$i3,$i4)
- *  550:     function get4b($i1,$i2,$i3,$i4)
- *  603:     function getHtml()
- *  859:     function rearrangeCaptions($sequence)
- *  884:     function useAsTextpic($html)
- *  909:     function transpose($arr)
- *
- * TOTAL FUNCTIONS: 13
- * (This index is automatically created/updated by the extension "extdeveval")
- *
- */
-
-require_once(PATH_tslib.'class.tslib_pibase.php');
 
 class tx_cagmagstyleimg_pi1 extends tslib_pibase {
 
@@ -87,7 +61,6 @@ class tx_cagmagstyleimg_pi1 extends tslib_pibase {
 	var $blockborderwidth;			// The border around each magimage block
 	var $blockbordercolor;			// The color of the magimage border
 	var $blockborderstyle;			// The style attribute for the magimage border
-	var $captionArray = array();	// The array of imagecaptions
 	var $layoutWraps = array();		// Inner Wraps of the magazine image blocks
 
 
@@ -98,76 +71,74 @@ class tx_cagmagstyleimg_pi1 extends tslib_pibase {
 	 * @param	array		$conf		TypoScript configuration
 	 * @return	string		$content	Accumulated HTML for the imageblocks
 	 */
-	function main($content,$conf) {
+	function main($content, $conf) {
 
-		// making $conf generally available in class
+			// making $conf generally available in class
 		$this->conf = $conf;
 
-		// initialize the flexform
+			// initialize the flexform
 		$flexFieldName = 'tx_cagmagstyleimg_flex';
 		$this->pi_initPIflexForm($flexFieldName);
 
-		// get values from flexform: image sheet
+			// get values from flexform: image sheet
 		$this->imgPadding = $this->pi_getFFvalue($this->cObj->data[$flexFieldName], 'imgPadding');
 		$this->imgBorderWidth = $this->pi_getFFvalue($this->cObj->data[$flexFieldName], 'imgBorderWidth');
 		$this->imgBorderStyle = $this->pi_getFFvalue($this->cObj->data[$flexFieldName], 'imgBorderStyle');
 		$this->imgBorderColor = htmlspecialchars($this->pi_getFFvalue($this->cObj->data[$flexFieldName], 'imgBorderColor'));
 
-		// get values from flexform: block sheet
+			// get values from flexform: block sheet
 		$this->blockBGColor = htmlspecialchars($this->pi_getFFvalue($this->cObj->data[$flexFieldName], 'blockBGColor', 's_block'));
 		$this->blockBorderWidth = $this->pi_getFFvalue($this->cObj->data[$flexFieldName], 'blockBorderWidth', 's_block');
 		$this->blockBorderColor = htmlspecialchars($this->pi_getFFvalue($this->cObj->data[$flexFieldName], 'blockBorderColor', 's_block'));
 		$this->blockBorderStyle = $this->pi_getFFvalue($this->cObj->data[$flexFieldName], 'blockBorderStyle', 's_block');
-		
-		// Note: user input is sanitized by the flexform eval settings and by using htmlspecialchars
 
-		// BLOCK SETUP
+			// Note: user input is sanitized by the flexform eval settings and by using htmlspecialchars
 
-    	// define the width for the output area (pixels)
+			// BLOCK SETUP
+
+			// define the width for the output area (pixels)
 		$this->fullwidth = $this->cObj->cObjGetSingle($conf['blockConfig.']['width'], $conf['blockConfig.']['width.']);
 		$GLOBALS['TSFE']->register['msiBlockWidth'] = $this->fullwidth;
 
-		// define if a background color for the block is set from flexform or from TS and write it to a global register for later substitution
+			// define if a background color for the block is set from flexform or from TS and write it to a global register for later substitution
 		if ($this->blockBGColor != '') {
 			$GLOBALS['TSFE']->register['msiBlockBgColor'] = $this->blockBGColor;
 		} else {
 			$GLOBALS['TSFE']->register['msiBlockBgColor'] = $conf['blockConfig.']['bgColor'];
 		}
 
-		// define border values around the block from flexform, otherwise use TS values
+			// define border values around the block from flexform, otherwise use TS values
 		($this->blockBorderStyle != '') ? $this->blockborderstyle = $this->blockBorderStyle : $this->blockborderstyle = $conf['blockConfig.']['border.']['style'];
 		($this->blockBorderColor != '') ? $this->blockbordercolor = $this->blockBorderColor : $this->blockbordercolor = $conf['blockConfig.']['border.']['color'];
 		($this->blockBorderWidth != '') ? $this->blockborderwidth = $this->blockBorderWidth : $this->blockborderwidth = $conf['blockConfig.']['border.']['width'];
 		$GLOBALS['TSFE']->register['msiBlockBorder'] = $this->blockborderwidth.'px '.$this->blockborderstyle.' '.$this->blockbordercolor;
 
-		// define text margins in relation the block for usage as textpic
+			// define text margins in relation the block for usage as textpic
 		if ($conf['textMargin.']['addBorderWidth']) {
 			($this->blockborderwidth != '') ? $textMargin = $conf['textMargin'] + ($this->blockborderwidth*2) : $textMargin = $conf['textMargin'];
 		} else {
 			$textMargin = $conf['textMargin'];
 		}
-		// add the text margin to the global textpic registers
+			// add the text margin to the global textpic registers
 		$GLOBALS['TSFE']->register['rowWidthPlusTextMargin'] = $this->fullwidth + $textMargin;
 
-		// LAYOUT WRAPS
+			// LAYOUT WRAPS
 		$this->layoutWraps = $conf['layoutWraps.'];
 
-		// IMAGE SETUP
+			// IMAGE SETUP
 
-		// Get the images
+			// Get the images
 		$imgList = trim($this->cObj->stdWrap($conf['imgList'], $conf['imgList.']));
-		if (!$imgList)	{
+
+		if (!$GLOBALS['TSFE']->register['files'])	{
 			if (is_array($conf['stdWrap.']))	{
 				return $this->cObj->stdWrap($content, $conf['stdWrap.']);
 			}
 			return $content;
 		}
-		$images = t3lib_div::trimExplode(',', $imgList);
+		$images = t3lib_div::trimExplode('###', $GLOBALS['TSFE']->register['files'], 1);
 
-		// Get the path to the images
-		$imgPath = $this->cObj->stdWrap($conf['imgPath'], $conf['imgPath.']);
-
-		// Define padding around each image
+			// Define padding around each image
 		($this->imgPadding != '') ? $this->padding = $this->imgPadding : $this->padding = $conf['imgConfig.']['imgPadding'];
 
 		// Define border around each image if set in flexform, otherwise use TS values
@@ -175,13 +146,10 @@ class tx_cagmagstyleimg_pi1 extends tslib_pibase {
 		($this->imgBorderStyle != '') ? $this->imgborderstyle = $this->imgBorderStyle : $this->imgborderstyle = $conf['imgConfig.']['border.']['style'];
 		($this->imgBorderColor != '') ? $this->imgbordercolor = $this->imgBorderColor : $this->imgbordercolor = $conf['imgConfig.']['border.']['color'];
 
-		// Image compression
+			// Image compression
 		$this->imagecompression = $this->cObj->cObjGetSingle($conf['imgConfig.']['image_compression'], $conf['imgConfig.']['image_compression.']);
 
-		// captions
-		if ($this->cObj->data['imagecaption'] != '') {$this->captionArray = t3lib_div::trimExplode(chr(10), $this->cObj->data['imagecaption']);}
-
-		// hand the imgages over for analysis
+			// hand the images over for analysis
 		$a = 0;
 		if (!empty($images)) {
 
@@ -194,13 +162,13 @@ class tx_cagmagstyleimg_pi1 extends tslib_pibase {
 
 				if ($a > 7) break;
 
-				$this->addImage($images[$key], $imgPath);
+				$this->addImage($images[$key]);
 
 				$a++;
 			}
 		}
 
-		// accumulate the HTML for the imageblocks
+			// accumulate the HTML for the imageblocks
 		$content .= $this->getHtml();
 
 		return $content;
@@ -211,31 +179,30 @@ class tx_cagmagstyleimg_pi1 extends tslib_pibase {
 	 * Analyses the incoming image and adds it to the $GLOBAL register holding the data for each magazine image.
 	 *
 	 * @param	string		$filename 		The filename of the image
-	 * @param	string		$imgPath		The path to the image
 	 * @return	true
 	 */
-	function addImage($filename,$imgPath) {
+	function addImage($filename) {
 
-		/* get the image dimensions doing it the TYPO3 way */
+			// get the image dimensions doing it the TYPO3 way
 		$gifbuilder = t3lib_div::makeInstance('tslib_gifbuilder');
-		$imageInfo = $gifbuilder->getImageDimensions($imgPath.$filename);
+		$imageInfo = $gifbuilder->getImageDimensions($filename);
 
 		$w = $imageInfo[0];
 		$h = $imageInfo[1];
 
-		/* don't include zero sized images */
+			// don't include zero sized images
 		if (($h == 0) || ($w == 0)) return false;
 
-		/* Find the ration of width:height */
+			// Find the ration of width:height
 		$ratio = $w / $h;
 
-		/* Set format based on the dimensions */
+			// Set format based on the dimensions
 		$format = ($w > $h) ? 'landscape' : 'portrait';
 
-		/* Keep a count on the total number of images */
+			// Keep a count on the total number of images
 		$this->numimages++;
 
-		/* Save all image details to a $GLOBAL register */
+			// Save all image details to a $GLOBAL register
 		$i = $this->numimages - 1;
 
 		$GLOBALS['TSFE']->register['IMAGE_NUM'] = $i;
@@ -244,7 +211,6 @@ class tx_cagmagstyleimg_pi1 extends tslib_pibase {
 		$this->images[$i] = array();
 		$this->images[$i]['number'] = $i;
 		$this->images[$i]['filename'] = $filename;
-		$this->images[$i]['imgPath'] = $imgPath;
 		$this->images[$i]['fullImgPath'] = $imageInfo[3];
 		$this->images[$i]['ext'] = $imageInfo[2];
 		$this->images[$i]['format'] = $format;
@@ -253,8 +219,7 @@ class tx_cagmagstyleimg_pi1 extends tslib_pibase {
 		$this->images[$i]['h'] = $h;
 		$this->images[$i]['altText'] = $this->cObj->cObjGetSingle($this->conf['imgConfig.']['altText'], $this->conf['imgConfig.']['altText.']);
 		$this->images[$i]['titleText'] = $this->cObj->cObjGetSingle($this->conf['imgConfig.']['titleText'], $this->conf['imgConfig.']['titleText.']);
-		$this->images[$i]['longdescURL'] = $this->cObj->cObjGetSingle($this->conf['imgConfig.']['longdescURL'], $this->conf['imgConfig.']['longdescURL.']);
-		$this->images[$i]['caption'] = $this->captionArray[$i];
+		$this->images[$i]['caption'] = $this->cObj->cObjGetSingle($this->conf['imgConfig.']['captionText'], $this->conf['imgConfig.']['captionText.']);
 
 		return true;
 	}
@@ -268,29 +233,29 @@ class tx_cagmagstyleimg_pi1 extends tslib_pibase {
 	 * @param	int			$i			The number of the image
 	 * @return	string		$imgTag		The <img> tag
 	 */
-	function insertImage($size,$file,$i) {
+	function insertImage($size, $file, $i) {
 
-		// this is used for the caption/alt/titleText split
+			// this is used for the caption/alt/titleText split
 		$GLOBALS['TSFE']->register['IMAGE_NUM'] = $i;
 		$GLOBALS['TSFE']->register['IMAGE_NUM_CURRENT'] = $i;
 
-		// begin to set $conf array for usage with IMAGE obj
+			// begin to set $conf array for usage with IMAGE obj
 		unset($this->conf['imgConfig.']['file.']['width']);
 		unset($this->conf['imgConfig.']['file.']['height']);
 		unset($this->conf['imgConfig.']['altText.']);
 		unset($this->conf['imgConfig.']['titleText.']);
 		unset($this->conf['imgConfig.']['longescURL.']);
 
-		// inserting the file
+			// inserting the file
 		$this->conf['imgConfig.']['file'] = $file;
 
-		// set inline styles for the imageborders
+			// set inline styles for the imageborders
 		if ($this->imgborderwidth != '') {$borderStyle = 'border: '.$this->imgborderwidth.'px '.$this->imgborderstyle.' '.$this->imgbordercolor.'; ';}
 
-		// the params could be accumulated in a later version so that other values might be set from TS
+			// the params could be accumulated in a later version so that other values might be set from TS
 		$this->conf['imgConfig.']['params'] .= 'style="margin: '.$this->padding.'px; '.$borderStyle.'padding: 0px;"';
 
-		// decide between fixedwidth or fixedheight for scaling (was done in image.php and is now handed over to IMAGE cObj in TYPO3)
+			// decide between fixedwidth or fixedheight for scaling (was done in image.php and is now handed over to IMAGE cObj in TYPO3)
 		if (substr($size, 0, 1) == 'h') {
 
 			$this->conf['imgConfig.']['file.']['width'] = floor(str_replace('h','',$size) * $this->images[$i]['ratio']);
@@ -313,7 +278,7 @@ class tx_cagmagstyleimg_pi1 extends tslib_pibase {
 
 		}
 
-		// set image compression
+			// set image compression
 		if (isset($this->imagecompression)) {
 
 			$this->conf['imgConfig.']['file.']['params'].= ' '.$this->cObj->image_compression[$this->imagecompression]['params'];
@@ -322,19 +287,19 @@ class tx_cagmagstyleimg_pi1 extends tslib_pibase {
 			unset($this->conf['imgConfig.']['file.']['ext.']);
 		}
 
-		// set alt/title/longesc attributes (overwrite them due to possible swap of image order)
+			// set alt/title/longesc attributes (overwrite them due to possible swap of image order)
 		$this->conf['imgConfig.']['altText'] = $this->images[$i]['altText'];
 		$this->conf['imgConfig.']['titleText'] = $this->images[$i]['titleText'];
 		$this->conf['imgConfig.']['longescURL'] = $this->images[$i]['longdescURL'];
 
-		// write the current image information into a global register so that it can be fetched with TS; this is necessary to provide
-		// for all situations in which the image order is not the same as in the DB field
+			// write the current image information into a global register so that it can be fetched with TS; this is necessary to provide
+			// for all situations in which the image order is not the same as in the DB field
 		$GLOBALS['TSFE']->register['MAG_IMG_CURRENT'] = $this->images[$i];
 
-		// handing over to tslib_cObj for doing the resizing stuff
+			// handing over to tslib_cObj for doing the resizing stuff
 		$imgTag = $this->cObj->IMAGE($this->conf['imgConfig.']);
 
-		// unset the params for the next image
+			// unset the params for the next image
 		unset ($this->conf['imgConfig.']['params']);
 
 		return $imgTag;
@@ -375,7 +340,7 @@ class tx_cagmagstyleimg_pi1 extends tslib_pibase {
 	 * @param	int		$i2		The number of the second image
 	 * @return	string	$html	The HTML for layout 2a
 	 */
-	function get2a($i1,$i2) {
+	function get2a($i1, $i2) {
 
 		$a = $this->images[$i1]['ratio'];
 		$b = $this->images[$i2]['ratio'];
@@ -400,9 +365,9 @@ class tx_cagmagstyleimg_pi1 extends tslib_pibase {
 	 * @param	int		$i3		The number of the third image
 	 * @return	string	$html	The HTML for layout 3a
 	 */
-	function get3a($i1,$i2,$i3) {
+	function get3a($i1, $i2, $i3) {
 
-		/* To save space in the equation */
+			// To save space in the equation
 		$a = $this->images[$i3]['ratio'];
 		$b = $this->images[$i1]['ratio'];
 		$c = $this->images[$i2]['ratio'];
@@ -441,9 +406,9 @@ class tx_cagmagstyleimg_pi1 extends tslib_pibase {
 	 * @param	int		$i3		The number of the third image
 	 * @return	string	$html	The HTML for layout 3b
 	 */
-	function get3b($i1,$i2,$i3) {
+	function get3b($i1, $i2, $i3) {
 
-		/* To save space in the equation */
+			// To save space in the equation
 		$a = $this->images[$i3]['ratio'];
 		$b = $this->images[$i1]['ratio'];
 		$c = $this->images[$i2]['ratio'];
@@ -494,9 +459,9 @@ class tx_cagmagstyleimg_pi1 extends tslib_pibase {
 	 * @param	int		$i4		The number of the fourth image
 	 * @return	string	$html	The HTML for layout 4a
 	 */
-	function get4a($i1,$i2,$i3,$i4) {
+	function get4a($i1, $i2, $i3, $i4) {
 
-		/* To save space in the equation */
+			// To save space in the equation
 		$a = $this->images[$i1]['ratio'];
 		$b = $this->images[$i2]['ratio'];
 		$c = $this->images[$i3]['ratio'];
@@ -539,9 +504,9 @@ class tx_cagmagstyleimg_pi1 extends tslib_pibase {
 	 * @param	int		$i4		The number of the fourth image
 	 * @return	string	$html	The HTML for layout 4b
 	 */
-	function get4b($i1,$i2,$i3,$i4) {
+	function get4b($i1, $i2, $i3, $i4) {
 
-		/* To save space in the equation */
+			// To save space in the equation
 		$a = $this->images[$i4]['ratio'];
 		$b = $this->images[$i1]['ratio'];
 		$c = $this->images[$i2]['ratio'];
@@ -559,7 +524,7 @@ class tx_cagmagstyleimg_pi1 extends tslib_pibase {
 		x
 		*/
 
-		/* column with 3 small images */
+			// column with 3 small images
 		$w1 = floor(
 		-(
 		(4 * $a * $b * $c * $d * $p + 4 * $b * $c * $d * $p - $b * $c * $d * $t)
@@ -568,7 +533,7 @@ class tx_cagmagstyleimg_pi1 extends tslib_pibase {
 		)
 		);
 
-		/* column with 1 large image */
+			// column with 1 large image
 		$w2 = floor(
 		-(
 		(-4 * $p - (-(1/$c) -(1/$d) -(1/$b)) * (4 * $p - $t) )
@@ -594,33 +559,32 @@ class tx_cagmagstyleimg_pi1 extends tslib_pibase {
 	 */
 	function getHtml() {
 
-		// Open the magimg DIV
+			// Open the magimg DIV
 		$html = '';
 
 		$blockWrap = explode('|', $this->conf['blockConfig.']['blockWrap']);
 		$blockWrap[1] = $this->cObj->insertData($blockWrap[1]);
 
-		// start the magazine imageblock
+			// start the magazine imageblock
 		$html .= $this->cObj->insertData($blockWrap[0]);
 
-		// start the image sorting / processing
+			// start the image sorting / processing
 		if (!empty($this->images)) {
 
-			// sort the images array landscape first, then portrait
-
+				// sort the images array landscape first, then portrait
 			$this->images = $this->transpose($this->images);
 
 			array_multisort($this->images['format'], SORT_STRING, SORT_ASC, $this->images['filename'], $this->images['fullImgPath'], $this->images['ext'], $this->images['ratio'], $this->images['w'], $this->images['h'], $this->images['altText'], $this->images['titleText'], $this->images['longdescURL'], $this->images['caption']);
 
 			$this->images = $this->transpose($this->images);
 
-			/* Profile explains the makeup of the images (landscape vs portrait) so we can use the best layout eg. LPPP or LLLP */
+				// Profile explains the makeup of the images (landscape vs portrait) so we can use the best layout eg. LPPP or LLLP
 			$profile = '';
 			foreach ($this->images as $i) {
 				$profile .= $i['format'] == 'landscape' ? 'L' : 'P';
 			}
 
-		// if there are no images, return
+			// if there are no images, return
 		} else {
 
 			$html .= $blockWrap[1];
@@ -630,18 +594,18 @@ class tx_cagmagstyleimg_pi1 extends tslib_pibase {
 			return $html;
 		}
 
-		/* 1 Image */
+			// 1 Image
 		if ($this->numimages == 1) {
 			$html .= $this->get1a(0);
 		}
 
-		/* 2 Images */
+			// 2 Images
 		if ($this->numimages == 2) {
 			$this->rearrangeCaptions('0,1');
 			$html .= $this->get2a(0,1);
 		}
 
-		/* 3 Images */
+			// 3 Images
 		if ($this->numimages == 3) {
 			if ($profile == 'LLL') {
 				$this->rearrangeCaptions('2,0,1');
@@ -654,7 +618,7 @@ class tx_cagmagstyleimg_pi1 extends tslib_pibase {
 			}
 		}
 
-		/* 4 Images */
+			// 4 Images
 		if ($this->numimages == 4) {
 
 			if ($profile == 'LLLP') {
@@ -664,14 +628,15 @@ class tx_cagmagstyleimg_pi1 extends tslib_pibase {
 				$this->rearrangeCaptions('1,3,2,0');
 				$html .= $this->get3a(1,2,3);
 				$html .= $this->get1a(0);
-			} else { // LLLL LLPP PPPP
+					// LLLL LLPP PPPP
+			} else {
 				$this->rearrangeCaptions('2,0,1,3');
 				$html .= $this->get2a(2,0);
 				$html .= $this->get2a(1,3);
 			}
 		}
 
-		/* 5 Images */
+			// 5 Images
 		if ($this->numimages == 5) {
 			if ($profile == 'LLLLL') {
 				$this->rearrangeCaptions('0,1,2,3,4');
@@ -700,7 +665,7 @@ class tx_cagmagstyleimg_pi1 extends tslib_pibase {
 			}
 		}
 
-		/* 6 Images */
+			// 6 Images
 		if ($this->numimages == 6) {
 			if ($profile == 'LLLLLL') {
 				$this->rearrangeCaptions('0,1,2,3,4,5');
@@ -734,7 +699,7 @@ class tx_cagmagstyleimg_pi1 extends tslib_pibase {
 			}
 		}
 
-		/* 7 Images */
+			// 7 Images
 		if ($this->numimages == 7) {
 			if ($profile == 'LLLLLLL') {
 				$this->rearrangeCaptions('0,2,1,3,4,5,6');
@@ -773,7 +738,7 @@ class tx_cagmagstyleimg_pi1 extends tslib_pibase {
 			}
 		}
 
-		/* 8 Images */
+			// 8 Images
 		if ($this->numimages >= 8) {
 			if ($profile == 'LLLLLLLL') {
 				$this->rearrangeCaptions('0,2,1,3,4,5,7,6');
@@ -824,15 +789,15 @@ class tx_cagmagstyleimg_pi1 extends tslib_pibase {
 			}
 		}
 
-		// Note: Any images over 8 are ignored. Adding support for more than 8 images would be possible, but the layouts do start losing their effect
+			// Note: Any images over 8 are ignored. Adding support for more than 8 images would be possible, but the layouts do start losing their effect
 
-		// Close the magimage DIV
+			// Close the magimage DIV
 		$html .= $blockWrap[1];
 
-		// If the plugin is used as text/w image element get wraps and text
+			// If the plugin is used as text/w image element get wraps and text
 		if ($this->conf['textConfig.'] || $this->conf['layout.']) {$html = $this->useAsTextpic($html);}
 
-		// Caption is inserted
+			// Caption is inserted
 		$caption = $this->cObj->cObjGetSingle($this->conf['imgConfig.']['caption'], $this->conf['imgConfig.']['caption.']);
 		$html = str_replace('###CAPTION###', $caption, $html);
 
@@ -848,9 +813,9 @@ class tx_cagmagstyleimg_pi1 extends tslib_pibase {
 	 * @param	string		$sequence		The sequence of captions/images for the magazine layout
 	 * @return	void
 	 */
-	function rearrangeCaptions ($sequence) {
+	function rearrangeCaptions($sequence) {
 
-		$newCaptionOrder = t3lib_div::trimExplode(',',$sequence);
+		$newCaptionOrder = t3lib_div::trimExplode(',', $sequence);
 
 		foreach ($newCaptionOrder as $key => $value) {
 
@@ -861,7 +826,7 @@ class tx_cagmagstyleimg_pi1 extends tslib_pibase {
 			}
 		}
 
-		if (!empty($newCaptionOrder)) {$this->cObj->data['imagecaption'] = implode(chr(10),$newCaptionOrder);}
+		if (!empty($newCaptionOrder)) {$this->cObj->data['imagecaption'] = implode(chr(10), $newCaptionOrder);}
 
 		return;
 	}
@@ -875,16 +840,18 @@ class tx_cagmagstyleimg_pi1 extends tslib_pibase {
 	 */
 	function useAsTextpic($html) {
 
-		// have we got text?
+		$content = '';
+
+			// have we got text?
 		if (is_array($this->conf['text.']))	{
-				$content .= $this->cObj->stdWrap($this->cObj->cObjGet($this->conf['text.'], 'text.'), $this->conf['text.']);
+			$content .= $this->cObj->stdWrap($this->cObj->cObjGet($this->conf['text.'], 'text.'), $this->conf['text.']);
 		}
 
-		// put the magimageblock into the standard textpic wrap
+			// put the magimageblock into the standard textpic wrap
 		$output = $this->cObj->cObjGetSingle($this->conf['layout'], $this->conf['layout.']);
 		$output = str_replace('###TEXT###', $content, $output);
 		$output = str_replace('###IMAGES###', $html, $output);
-		// not used and therefore emptied
+			// not used and therefore emptied
 		$output = str_replace('###CLASSES###', '', $output);
 
 		return $output;

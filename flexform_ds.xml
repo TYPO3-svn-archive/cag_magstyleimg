@@ -9,10 +9,9 @@
 				<TCEforms>
 					<sheetTitle>LLL:EXT:cag_magstyleimg/locallang_db.xml:tx_cagmagstyleimg.imglayout</sheetTitle>
 				</TCEforms>	
-		        <type>array</type>
-		        <el>
-						
-			  	<imgPadding>
+				<type>array</type>
+				<el>
+				<imgPadding>
 					<TCEforms>
 					<label>LLL:EXT:cag_magstyleimg/locallang_db.xml:tx_cagmagstyleimg.imgpadding</label>
 						<config>
@@ -57,7 +56,7 @@
 						</config>
 					</TCEforms>
 				</imgBorderColor>
-										  
+
 				<imgBorderStyle>
 				  	<TCEforms>
 					<label>LLL:EXT:cag_magstyleimg/locallang_db.xml:tx_cagmagstyleimg.borderstyle</label>
@@ -99,14 +98,14 @@
 								<numIndex index="8" type="array">
 									<numIndex index="0">LLL:EXT:cag_magstyleimg/locallang_db.xml:tx_cagmagstyleimg.borderstyle.outset</numIndex>
 									<numIndex index="1">outset</numIndex>
-								</numIndex>								
+								</numIndex>
 							</items>
 							<minitems>0</minitems>
 							<maxitems>1</maxitems>
 							<size>1</size>
 						</config>
 					</TCEforms>
-				 </imgBorderStyle>				 				  							    
+				 </imgBorderStyle>
 		        </el>
 			</ROOT>
 		</sDEF>
@@ -125,17 +124,17 @@
 							<type>input</type>
 							<checkbox></checkbox>
 							<size>20</size>
-					        <wizards>
-					        	<_PADDING>2</_PADDING>
-					         	<color>
-						          	<type>colorbox</type>
-						         	<dim>18x12</dim>
-						         	<tableStyle>border:solid 1px black;</tableStyle>
-						          	<script>wizard_colorpicker.php</script>
-						         	<exampleImg>gfx/wizard_colorpickerex.jpg</exampleImg>				         			 
+							<wizards>
+								<_PADDING>2</_PADDING>
+								<color>
+									<type>colorbox</type>
+									<dim>18x12</dim>
+									<tableStyle>border:solid 1px black;</tableStyle>
+									<script>wizard_colorpicker.php</script>
+									<exampleImg>gfx/wizard_colorpickerex.jpg</exampleImg>
 									<JSopenParams>height=300,width=450,status=0,menubar=0,scrollbars=1</JSopenParams>
-					         	</color>
-					        </wizards>
+								</color>
+							</wizards>
 						</config>
 					</TCEforms>
 				</blockBGColor>	
@@ -159,23 +158,23 @@
 							<type>input</type>
 							<checkbox></checkbox>
 							<size>20</size>
-					        <wizards>
-					        	<_PADDING>2</_PADDING>
-					         	<color>
-						          	<type>colorbox</type>
-						         	<dim>18x12</dim>
-						         	<tableStyle>border:solid 1px black;</tableStyle>
-						          	<script>wizard_colorpicker.php</script>
-						         	<exampleImg>gfx/wizard_colorpickerex.jpg</exampleImg>				         			 
+							<wizards>
+								<_PADDING>2</_PADDING>
+								<color>
+									<type>colorbox</type>
+									<dim>18x12</dim>
+									<tableStyle>border:solid 1px black;</tableStyle>
+									<script>wizard_colorpicker.php</script>
+									<exampleImg>gfx/wizard_colorpickerex.jpg</exampleImg>
 									<JSopenParams>height=300,width=450,status=0,menubar=0,scrollbars=1</JSopenParams>
-					         	</color>
-					        </wizards>
+								</color>
+							</wizards>
 						</config>
 					</TCEforms>
 				</blockBorderColor>
-										  
+
 				<blockBorderStyle>
-				  	<TCEforms>
+					<TCEforms>
 					<label>LLL:EXT:cag_magstyleimg/locallang_db.xml:tx_cagmagstyleimg.borderstyle</label>
 						<config>
 							<type>select</type>
@@ -215,16 +214,16 @@
 								<numIndex index="8" type="array">
 									<numIndex index="0">LLL:EXT:cag_magstyleimg/locallang_db.xml:tx_cagmagstyleimg.borderstyle.outset</numIndex>
 									<numIndex index="1">outset</numIndex>
-								</numIndex>								
+								</numIndex>
 							</items>
 							<minitems>0</minitems>
 							<maxitems>1</maxitems>
 							<size>1</size>
 						</config>
 					</TCEforms>
-				 </blockBorderStyle>							
+				 </blockBorderStyle>
 				</el>
-			</ROOT>	
-		</s_block>						
-  	</sheets>				
+			</ROOT>
+		</s_block>
+  	</sheets>
 </T3DataStructure>

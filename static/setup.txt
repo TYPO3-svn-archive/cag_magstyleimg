@@ -13,11 +13,23 @@ plugin.tx_cagmagstyleimg_pi1 {
 
 	userFunc = tx_cagmagstyleimg_pi1->main
 
-	# the list of images for the imageblock
-	imgList.field = image
+	imgList.cObject = FILES
+	imgList.cObject {
 
-	# the path to the imgs / stdWrap can be used :)
-	imgPath = uploads/pics/
+		references {
+			table = tt_content
+			uid.data = field : uid
+			fieldName = image
+		}
+
+		renderObj = LOAD_REGISTER
+		renderObj {
+			files.dataWrap = {register:files}###{file:current:publicUrl}
+			altTexts.dataWrap = {register:altTexts}###{file:current:alternative}
+			titleTexts.dataWrap = {register:titleTexts}###{file:current:title}
+			imageCaptions.dataWrap = {register:imageCaptions}###{file:current:description}
+		}
+	}
 
 	blockConfig {
 
@@ -62,27 +74,31 @@ plugin.tx_cagmagstyleimg_pi1 {
 		image_compression = TEXT
 		image_compression.field = image_compression
 
-		caption = TEXT
-		caption {
-			field = imagecaption
-			required = 1
-			parseFunc =< lib.parseFunc
-			br = 1
-			editIcons < tt_content.image.20.caption.editIcons
-		}
-
 		altText = TEXT
 		altText {
-			field = altText
-			split.token.char = 10
-			split.returnKey.data = register : IMAGE_NUM
+			data = register : altTexts
+			split.token = ###
+			split.returnKey.cObject = TEXT
+			split.returnKey.cObject {
+				data = register : IMAGE_NUM
+				wrap = |+1
+			}
+			split.returnKey.prioriCalc = intval
 		}
 
 		titleText < .altText
-		titleText.field = titleText
+		titleText.data = register : titleTexts
 
-		longdescURL < .altText
-		longdescURL.field = longdescURL
+		captionText < .altText
+		captionText.data = register : imageCaptions
+
+		caption = TEXT
+		caption {
+			field = imagecaption
+			parseFunc =< lib.parseFunc
+			br = 1
+			required = 1
+		}
 	}
 
 	layoutWraps {
@@ -139,85 +155,10 @@ tt_content.cag_magstyleimg_pi1 {
 	20 < plugin.tx_cagmagstyleimg_pi1
 	20 {
 
-		imgList >
-		imgList < tt_content.image.20.imgList
-		imgPath >
-		imgPath < tt_content.image.20.imgPath
-
 		text < tt_content.textpic.20.text
 
 		textMargin < tt_content.image.20.textMargin
 		textMargin.addBorderWidth = 1
-	}
-}
-
-#######################################################
-# TypoScript CE Config for TYPO3 Versions < 3.9.0 	  #
-#######################################################
-
-tt_content.cag_magstyleimg_pi1 = COA
-tt_content.cag_magstyleimg_pi1 {
-
-	20 {
-
-		imgConfig.caption.outerWrap = <p class="msi-textpic-caption">|</p>
-		imgConfig.caption.outerWrap.override.if.isTrue.field = imagecaption_position
-		imgConfig.caption.outerWrap.override.cObject = COA
-		imgConfig.caption.outerWrap.override.cObject {
-
-			1 = TEXT
-			1 {
-				value = <div class="msi-textpic-caption-c"><p class="msi-textpic-caption">|</p></div>
-				if.value = center
-				if.equals.field = imagecaption_position
-			}
-
-			2 < .1
-			2.value = <div class="msi-textpic-caption-r"><p class="msi-textpic-caption">|</p></div>
-			2.if.value = right
-
-			3 < .1
-			3.value = <div class="msi-textpic-caption-l"><p class="msi-textpic-caption">|</p></div>
-			3.if.value = left
-		}
-
-		layout = CASE
-		layout {
-			key.field = imageorient
-			# above-center
-			default = TEXT
-			default.value = <div class="msi-textpic msi-textpic-center msi-textpic-above">###IMAGES######TEXT###</div><div class="msi-textpic-clear"><!-- --></div>
-			# above-right
-			1 = TEXT
-			1.value = <div class="msi-textpic msi-textpic-right msi-textpic-above">###IMAGES######TEXT###</div><div class="msi-textpic-clear"><!-- --></div>
-			# above-left
-			2 = TEXT
-			2.value = <div class="msi-textpic msi-textpic-left msi-textpic-above">###IMAGES######TEXT###</div><div class="msi-textpic-clear"><!-- --></div>
-			# below-center
-			8 = TEXT
-			8.value = <div class="msi-textpic msi-textpic-center msi-textpic-below">###TEXT######IMAGES###</div><div class="msi-textpic-clear"><!-- --></div>
-			# below-right
-			9 = TEXT
-			9.value = <div class="msi-textpic msi-textpic-right msi-textpic-below">###TEXT######IMAGES###</div><div class="msi-textpic-clear"><!-- --></div>
-			# below-left
-			10 = TEXT
-			10.value = <div class="msi-textpic msi-textpic-left msi-textpic-below">###TEXT######IMAGES###</div><div class="msi-textpic-clear"><!-- --></div>
-			# intext-right
-			17 = TEXT
-			17.value = <div class="msi-textpic msi-textpic-intext-right">###IMAGES######TEXT###</div>
-			# intext-left
-			18 = TEXT
-			18.value = <div class="msi-textpic msi-textpic-intext-left">###IMAGES######TEXT###</div>
-			# intext-right-nowrap
-			25 = TEXT
-			25.value = <div class="msi-textpic msi-textpic-intext-right-nowrap">###IMAGES###<div style="margin-right:{register:rowwidth}px;">###TEXT###</div></div><div class="msi-textpic-clear"><!-- --></div>
-			25.insertData = 1
-			# intext-left-nowrap
-			26 = TEXT
-			26.value = <div class="msi-textpic msi-textpic-intext-left-nowrap">###IMAGES###<div style="margin-left:{register:rowwidth}px;">###TEXT###</div></div><div class="msi-textpic-clear"><!-- --></div>
-			26.insertData = 1
-		}
-		text.wrap = <div class="msi-textpic-text"> | </div>
 	}
 }
 

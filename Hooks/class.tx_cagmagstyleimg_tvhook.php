@@ -29,8 +29,7 @@
  *
  */
 
-
-class tx_cagmagstyleimg_hooks {
+class tx_cagmagstyleimg_tvhook {
 
 	/*
 	 *	This function uses a hook in the templavoila page module to
@@ -60,8 +59,8 @@ class tx_cagmagstyleimg_hooks {
 
 }
 
-if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/cag_magstyleimg/pi1/class.tx_cagmagstyleimg_hooks.php'])	{
-	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/cag_magstyleimg/pi1/class.tx_cagmagstyleimg_hooks.php']);
+if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/cag_magstyleimg/pi1/class.tx_cagmagstyleimg_tvhook.php'])	{
+	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/cag_magstyleimg/pi1/class.tx_cagmagstyleimg_tvhook.php']);
 }
 
 ?>

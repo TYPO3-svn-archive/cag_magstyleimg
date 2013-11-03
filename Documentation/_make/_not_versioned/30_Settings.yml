@@ -1,0 +1,23 @@
+# 30_Settings.yml
+# 2013-11-03 20:37:33
+# read from : /var/www/workspace/svn.typo3.org.cag_magstyleimg/trunk/Documentation/_make/../Settings.yml
+# written to: /var/www/workspace/svn.typo3.org.cag_magstyleimg/trunk/Documentation/_make/_not_versioned/30_Settings.yml
+# Result: Applied '/var/www/workspace/svn.typo3.org.cag_magstyleimg/trunk/Documentation/_make/../Settings.yml' to 'conf.py'.
+
+---
+conf.py:
+  copyright: 2013
+  latex_documents:
+  - - Index
+    - MagazineStyleImages.tex
+    - Magazine Style Images
+    - Torsten Schrade
+    - manual
+  latex_elements:
+    papersize: a4paper
+    pointsize: 10pt
+    preamble: \usepackage{typo3}
+  project: Magazine Style Images
+  release: 1.0.0
+  version: 1.0
+...

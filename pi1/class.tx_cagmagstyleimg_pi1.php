@@ -244,7 +244,7 @@ class tx_cagmagstyleimg_pi1 extends tslib_pibase {
 		unset($this->conf['imgConfig.']['file.']['height']);
 		unset($this->conf['imgConfig.']['altText.']);
 		unset($this->conf['imgConfig.']['titleText.']);
-		unset($this->conf['imgConfig.']['longescURL.']);
+		// unset($this->conf['imgConfig.']['longdescURL.']);
 
 			// inserting the file
 		$this->conf['imgConfig.']['file'] = $file;
@@ -290,7 +290,10 @@ class tx_cagmagstyleimg_pi1 extends tslib_pibase {
 			// set alt/title/longesc attributes (overwrite them due to possible swap of image order)
 		$this->conf['imgConfig.']['altText'] = $this->images[$i]['altText'];
 		$this->conf['imgConfig.']['titleText'] = $this->images[$i]['titleText'];
-		$this->conf['imgConfig.']['longescURL'] = $this->images[$i]['longdescURL'];
+
+			// longdescURL removed due to no FAL support; wait until the field has been reintroduced
+			// @see http://forge.typo3.org/issues/59003 and http://forge.typo3.org/projects/typo3cms-core/repository/revisions/f20ae08ec244133cff53acd52d17db746a0c85df
+		// $this->conf['imgConfig.']['longdescURL'] = $this->images[$i]['longdescURL'];
 
 			// write the current image information into a global register so that it can be fetched with TS; this is necessary to provide
 			// for all situations in which the image order is not the same as in the DB field
@@ -574,7 +577,8 @@ class tx_cagmagstyleimg_pi1 extends tslib_pibase {
 				// sort the images array landscape first, then portrait
 			$this->images = $this->transpose($this->images);
 
-			array_multisort($this->images['format'], SORT_STRING, SORT_ASC, $this->images['filename'], $this->images['fullImgPath'], $this->images['ext'], $this->images['ratio'], $this->images['w'], $this->images['h'], $this->images['altText'], $this->images['titleText'], $this->images['longdescURL'], $this->images['caption']);
+			//array_multisort($this->images['format'], SORT_STRING, SORT_ASC, $this->images['filename'], $this->images['fullImgPath'], $this->images['ext'], $this->images['ratio'], $this->images['w'], $this->images['h'], $this->images['altText'], $this->images['titleText'], $this->images['longdescURL'], $this->images['caption']);
+			array_multisort($this->images['format'], SORT_STRING, SORT_ASC, $this->images['filename'], $this->images['fullImgPath'], $this->images['ext'], $this->images['ratio'], $this->images['w'], $this->images['h'], $this->images['altText'], $this->images['titleText'], $this->images['caption']);
 
 			$this->images = $this->transpose($this->images);
 

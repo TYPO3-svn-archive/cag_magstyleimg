@@ -1,2 +1,3 @@
+- Bug: accumulation of images register with more than one CE on a page
 - ReST Documentation
 - what about links for FAL images

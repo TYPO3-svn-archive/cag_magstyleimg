@@ -13,8 +13,9 @@ plugin.tx_cagmagstyleimg_pi1 {
 
 	userFunc = tx_cagmagstyleimg_pi1->main
 
-	imgList.cObject = FILES
-	imgList.cObject {
+	imgList.cObject = COA
+	imgList.cObject.10 = FILES
+	imgList.cObject.10 {
 
 		references {
 			table = tt_content
@@ -30,6 +31,7 @@ plugin.tx_cagmagstyleimg_pi1 {
 			imageCaptions.dataWrap = {register:imageCaptions}###{file:current:description}
 		}
 	}
+	imgList.cObject.20 = RESTORE_REGISTER
 
 	blockConfig {
 
